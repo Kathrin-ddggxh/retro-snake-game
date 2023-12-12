@@ -25,3 +25,10 @@ function drawSnake() {
         const snakeElement = createGameElement("div", "snake")
     })
 }
+
+// Create snake or food cube/div
+function createGameElement(tag, className) {
+    const element = document.createElement(tag);
+    element.className = className;
+    return element;
+}
