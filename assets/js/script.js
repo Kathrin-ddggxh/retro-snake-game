@@ -1,5 +1,7 @@
 // Define HTML elements
 const board = document.getElementById("game-board");
+const instructionTxt = document.getElementById("instruction-txt");
+const logo = document.getElementById("logo");
 
 // Define game variables
 const gridSize = 20;
@@ -18,6 +20,8 @@ let direction = "right";
 let gameInterval;
 
 let gameSpeedDelay = 200;
+
+let gameStarted = false;
 
 /** 
 * Draw game map, snake and food
@@ -100,8 +104,41 @@ function move() {
     }
 }
 
-// test moving
-// setInterval(() => {
-//     move(); // move first
-//     draw(); // then draw again new position
-// }, 200);
+// start game function
+function startGame() {
+    gameStarted = true;   // keep track of running game
+    instructionTxt.style.display = 'none';
+    logo.style.display = 'none';
+    gameInterval = setInterval(() => {
+        move();
+        //checkCollision();
+        draw();
+    }, gameSpeedDelay);
+}
+
+// keypress event listener
+function handleKeyPress(event) {
+    if (
+      (!gameStarted && event.code === "Space") ||
+      (!gameStarted && event.key === " ")
+      ) {
+        startGame();
+    } else {
+        switch(event.key) {
+            case "ArrowUp":
+                direction = "up";
+                break;
+            case "ArrowDown":
+                direction = "down";
+                break;
+            case "ArrowLeft":
+                direction = "left";
+                break;
+            case "ArrowRight":
+                direction = "right";
+                break;
+        }
+    }
+}
+
+document.addEventListener("keydown", handleKeyPress);
