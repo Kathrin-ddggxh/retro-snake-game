@@ -22,7 +22,9 @@ function draw() {
  */
 function drawSnake() {
     snake.forEach((segment) => {
-        const snakeElement = createGameElement("div", "snake")
+        const snakeElement = createGameElement("div", "snake");
+        setPosition(snakeElement, segment);
+        board.appendChild(snakeElement);
     })
 }
 
@@ -31,4 +33,10 @@ function createGameElement(tag, className) {
     const element = document.createElement(tag);
     element.className = className;
     return element;
+}
+
+// Set position of the snake or the food
+function setPosition(element, position) {
+    element.style.gridColumn = position.x;
+    element.style.gridRow = position.y;
 }
