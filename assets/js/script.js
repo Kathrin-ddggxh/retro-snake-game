@@ -15,6 +15,10 @@ let food = generateFood();
 
 let direction = "right";
 
+let gameInterval;
+
+let gameSpeedDelay = 200;
+
 /** 
 * Draw game map, snake and food
 */
@@ -83,11 +87,21 @@ function move() {
 
     snake.unshift(head);
 
-    snake.pop();
+    // if snake head meets food, snake grows and food gets generated again
+    if (head.x === food.x && head.y === food.y) {
+        food = generateFood();
+        clearInterval();    // clear past interval
+        gameInterval = setInterval(() => {
+            move();
+            draw();
+        }, gameSpeedDelay);
+    } else {
+        snake.pop();
+    }
 }
 
 // test moving
-setInterval(() => {
-    move(); // move first
-    draw(); // then draw again new position
-}, 200);
+// setInterval(() => {
+//     move(); // move first
+//     draw(); // then draw again new position
+// }, 200);
