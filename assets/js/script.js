@@ -3,6 +3,7 @@ const board = document.getElementById("game-board");
 const instructionTxt = document.getElementById("instruction-txt");
 const logo = document.getElementById("logo");
 const score = document.getElementById("score");
+const highScoreText = document.getElementById("highScore");
 
 // Define game variables
 const gridSize = 20;
@@ -15,6 +16,8 @@ let snake = [
 ];
 
 let food = generateFood();
+
+let highScore = 0;
 
 let direction = "right";
 
@@ -168,12 +171,14 @@ function checkCollision() {
 
     for (let i = 1; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
-            resestGame();
+            resetGame();
         }
     }
 }
 
-function resestGame() {
+function resetGame() {
+    updateHighScore();
+    stopGame();
     snake = [
         {
             x: 10,
@@ -191,4 +196,20 @@ function resestGame() {
 function updateScore() {
     const currentScore = snake.length - 1;
     score.textContent = currentScore.toString().padStart(3, "0");
+}
+
+function stopGame() {
+     clearInterval(gameInterval);
+     gameStarted = false;
+     instructionTxt.style.display = "block";
+     logo.style.display = "block";
+}
+
+function updateHighScore() {
+    const currentScore = snake.length - 1;
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        highScoreText.textContent = highScore.toString().padStart(3, "0");
+    }
+    highScoreText.style.display = "block";
 }
