@@ -2,6 +2,7 @@
 const board = document.getElementById("game-board");
 const instructionTxt = document.getElementById("instruction-txt");
 const logo = document.getElementById("logo");
+const score = document.getElementById("score");
 
 // Define game variables
 const gridSize = 20;
@@ -30,6 +31,7 @@ function draw() {
     board.innerHTML = ""; // resets board every time game draws
     drawSnake();
     drawFood();
+    updateScore();
 }
 
 /**
@@ -184,4 +186,9 @@ function resestGame() {
     gameSpeedDelay = 200;
 
     updateScore();
+}
+
+function updateScore() {
+    const currentScore = snake.length - 1;
+    score.textContent = currentScore.toString().padStart(3, "0");
 }
