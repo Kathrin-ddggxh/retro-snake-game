@@ -63,9 +63,11 @@ function setPosition(element, position) {
 
 // draw food function
 function drawFood() {
-    const foodElement = createGameElement("div", "food");
-    setPosition(foodElement, food);
-    board.appendChild(foodElement)
+    if (gameStarted) {
+        const foodElement = createGameElement("div", "food");
+        setPosition(foodElement, food);
+        board.appendChild(foodElement)
+    }
 }
 
 // generate food element in random position on board
